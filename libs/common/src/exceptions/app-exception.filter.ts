@@ -46,7 +46,6 @@ export class CustomRpcExceptionFilter implements ExceptionFilter {
 
       try {
         error_message = JSON.parse(exception.message);
-        console.log('line 74');
 
         if (error_message.stack) {
           error_stack = `${error_message.stack}`;

@@ -1,27 +1,27 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { OutingController } from './outing.controller';
+import { OutingService } from './outing.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'AUTH_SERVICE',
+        name: 'OUTING_SERVICE',
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'auth',
+            clientId: 'outing',
             brokers: ['localhost:9092'],
           },
           consumer: {
-            groupId: 'auth-consumer',
+            groupId: 'outing-consumer',
           },
         },
       },
     ]),
   ],
-  providers: [AuthService],
-  controllers: [AuthController],
+  controllers: [OutingController],
+  providers: [OutingService],
 })
-export class AuthModule {}
+export class OutingModule {}

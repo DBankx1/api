@@ -1,3 +1,4 @@
+import { instanceToPlain } from 'class-transformer';
 import { IsNotEmpty, IsPhoneNumber } from 'class-validator';
 
 export class LoginUserWithPhoneDto {
@@ -5,9 +6,7 @@ export class LoginUserWithPhoneDto {
   @IsNotEmpty()
   phone: string;
 
-  toString() {
-    return JSON.stringify({
-      phone: this.phone,
-    });
+  toString(): string {
+    return JSON.stringify(instanceToPlain(this));
   }
 }

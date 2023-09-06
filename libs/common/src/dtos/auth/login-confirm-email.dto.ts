@@ -1,3 +1,4 @@
+import { instanceToPlain } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class ConfirmLoginUserWithEmailDto {
@@ -5,9 +6,7 @@ export class ConfirmLoginUserWithEmailDto {
   @IsNotEmpty()
   token: string;
 
-  toString() {
-    return JSON.stringify({
-      token: this.token,
-    });
+  toString(): string {
+    return JSON.stringify(instanceToPlain(this));
   }
 }

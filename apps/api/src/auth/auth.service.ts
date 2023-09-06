@@ -1,3 +1,4 @@
+import { User } from '@db/persistance';
 import {
   Inject,
   Injectable,
@@ -32,7 +33,9 @@ export class AuthService implements OnModuleInit, OnModuleDestroy {
     await this._authClient.close();
   }
 
-  registerUserWithEmail(registerUserWithEmailDto: RegisterUserWithEmailDto) {
+  registerUserWithEmail(
+    registerUserWithEmailDto: RegisterUserWithEmailDto,
+  ): Promise<User> {
     return new Promise((resolve, reject) => {
       this._authClient
         .send('email_register', registerUserWithEmailDto)

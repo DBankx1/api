@@ -1,3 +1,4 @@
+import { instanceToPlain } from 'class-transformer';
 import { IsAlpha, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 export class RegisterUserWithPhoneDto {
@@ -15,11 +16,7 @@ export class RegisterUserWithPhoneDto {
   @IsAlpha()
   lastName: string;
 
-  toString() {
-    return JSON.stringify({
-      phone: this.phone,
-      firstName: this.firstName,
-      lastName: this.lastName,
-    });
+  toString(): string {
+    return JSON.stringify(instanceToPlain(this));
   }
 }

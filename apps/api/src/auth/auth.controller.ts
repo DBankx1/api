@@ -1,9 +1,9 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Post,
-  UseFilters,
-  ExceptionFilter,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -16,37 +16,42 @@ import {
 
 @Controller('auth')
 export class AuthController {
-  constructor(private _service: AuthService) {}
+  constructor(private readonly _service: AuthService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('register/email')
-  registerUserWithEmail(
+  async registerUserWithEmail(
     @Body() registerUserWithEmailDto: RegisterUserWithEmailDto,
   ) {
-    return this._service.registerUserWithEmail(registerUserWithEmailDto);
+    return await this._service.registerUserWithEmail(registerUserWithEmailDto);
   }
 
   @Post('register/phone')
-  registerUserWithPhone(
+  async registerUserWithPhone(
     @Body() registerUserWithPhone: RegisterUserWithPhoneDto,
   ) {
-    return this._service.registerUserWithPhone(registerUserWithPhone);
+    return await this._service.registerUserWithPhone(registerUserWithPhone);
   }
 
   @Post('login/email')
-  loginUserWithEmail(@Body() loginUserWithEmailDto: LoginUserWithEmailDto) {
-    return this._service.loginUserWithEmail(loginUserWithEmailDto);
+  async loginUserWithEmail(
+    @Body() loginUserWithEmailDto: LoginUserWithEmailDto,
+  ) {
+    return await this._service.loginUserWithEmail(loginUserWithEmailDto);
   }
 
   @Post('login/phone')
-  loginUserWithPhone(@Body() loginUserWithPhoneDto: LoginUserWithPhoneDto) {
-    return this._service.loginUserWithPhone(loginUserWithPhoneDto);
+  async loginUserWithPhone(
+    @Body() loginUserWithPhoneDto: LoginUserWithPhoneDto,
+  ) {
+    return await this._service.loginUserWithPhone(loginUserWithPhoneDto);
   }
 
   @Post('login/confirm/email')
-  confirmLoginUserWithEmail(
+  async confirmLoginUserWithEmail(
     @Body() confirmLoginUserWithEmailDto: ConfirmLoginUserWithEmailDto,
   ) {
-    return this._service.confirmLoginUserWithEmail(
+    return await this._service.confirmLoginUserWithEmail(
       confirmLoginUserWithEmailDto,
     );
   }

@@ -53,7 +53,7 @@ export class AuthService {
 
       await createdUser.save();
 
-      return createdUser;
+      return createdUser.toJSON();
     } catch (error) {
       Logger.error('Error occurred registering user with email', error);
       throw error;
@@ -88,7 +88,7 @@ export class AuthService {
 
       await createdUser.save();
 
-      return createdUser;
+      return createdUser.toJSON();
     } catch (error) {
       Logger.error('Error occurred registering user with phone', error);
       throw error;
@@ -120,7 +120,6 @@ export class AuthService {
       var response = await this._stytchService.confirmLoginUserWithEmail(
         data.token,
       );
-      console.log(response);
       return response;
     } catch (error) {
       Logger.error('Error occurred confirming log in user with email', error);
